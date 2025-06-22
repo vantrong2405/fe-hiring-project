@@ -37,7 +37,10 @@ import {
   Lightbulb,
   RefreshCw,
   Trash2,
-  Plus
+  Plus,
+  Edit2,
+  Activity,
+  Info
 } from 'lucide-react'
 
 export const Icons = {
@@ -79,5 +82,8 @@ export const Icons = {
   Lightbulb,
   RefreshCw,
   Trash2,
-  Plus
+  Plus,
+  Edit2,
+  Activity,
+  Info
 }

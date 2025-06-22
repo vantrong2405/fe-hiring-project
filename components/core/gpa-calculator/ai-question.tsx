@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Icons } from '@/components/icons/icon'
-import { exampleQuestions } from '@/seeding'
+import { exampleQuestions } from '@/seeds/gpa-calculator'
 
 export default function AIQuestion() {
   return (

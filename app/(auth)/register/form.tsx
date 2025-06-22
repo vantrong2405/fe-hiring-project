@@ -61,7 +61,6 @@ export default function RegisterForm() {
 
     setIsLoading(true)
 
-    // Simulate API call
     setTimeout(() => {
       alert('Đăng ký thành công! Chuyển đến trang chủ...')
       router.push('/')

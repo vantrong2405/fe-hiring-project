@@ -10,9 +10,9 @@ import { Icons } from '@/components/icons/icon'
 import { Combobox } from '@/components/ui/combobox'
 import { evaluateGPATarget } from '@/app/tools/gpa-calculator/handler'
 import GPAHelpDialog from '@/app/tools/gpa-calculator/dialog'
-import { GPAResult, GPAFormData } from '@/types'
-import { gpaValidationRules } from '@/app/schemas/gpa-calculator'
-import { totalCreditOptions } from '@/seeding'
+import { GPAResult, GPAFormData } from '@/types/gpa-calculator'
+import { gpaTargetSchema, GPATargetFormData } from '@/app/schemas/gpa-calculator/validation'
+import { totalCreditOptions } from '@/seeds/constant'
 
 interface TargetCalculatorProps {
   onResultChange: (result: GPAResult | null) => void
@@ -28,7 +28,7 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
     reset,
     watch,
     formState: { errors, isValid }
-  } = useForm<GPAFormData>({
+  } = useForm<GPATargetFormData>({
     defaultValues: {
       completed_credits: 0,
       current_gpa: 0,
@@ -94,7 +94,6 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
               <Controller
                 name='completed_credits'
                 control={control}
-                rules={gpaValidationRules.completed_credits}
                 render={({ field }) => (
                   <Combobox
                     options={totalCreditOptions}
@@ -116,7 +115,6 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
               <Controller
                 name='current_gpa'
                 control={control}
-                rules={gpaValidationRules.current_gpa}
                 render={({ field }) => (
                   <Input
                     type='number'
@@ -143,7 +141,6 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
                 name='target_gpa'
                 control={control}
                 rules={{
-                  ...gpaValidationRules.target_gpa,
                   validate: {
                     notLowerThanCurrent: (value: number) =>
                       value >= currentGPA ||
@@ -189,7 +186,6 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
               <Controller
                 name='remaining_credits'
                 control={control}
-                rules={gpaValidationRules.remaining_credits}
                 render={({ field }) => (
                   <Combobox
                     options={totalCreditOptions}
@@ -233,7 +229,20 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
         </form>
       </CardContent>
 
-      <GPAHelpDialog open={isHelpOpen} onOpenChange={setIsHelpOpen} />
+      <GPAHelpDialog
+        targetDialog={{
+          isOpen: isHelpOpen,
+          onClose: () => setIsHelpOpen(false)
+        }}
+        detailedDialog={{
+          isOpen: false,
+          onClose: () => {}
+        }}
+        physicalDialog={{
+          isOpen: false,
+          onClose: () => {}
+        }}
+      />
     </Card>
   )
 }

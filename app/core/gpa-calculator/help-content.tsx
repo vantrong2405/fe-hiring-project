@@ -55,7 +55,7 @@ export const GPAHelpContent = () => (
             <div>
               <p className='font-medium text-purple-900 dark:text-purple-100'>GPA mục tiêu</p>
               <p className='text-purple-700 dark:text-purple-300 mt-1'>
-                GPA bạn muốn đạt được khi tốt nghiệp. VD: 3.2 (Khá)
+                GPA bạn muốn đạt được khi tốt nghiệp. VD: 3.2 (giỏi)
               </p>
             </div>
           </div>

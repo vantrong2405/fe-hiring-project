@@ -6,12 +6,25 @@ import { Icons } from '@/components/icons/icon'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import TargetCalculator from '@/components/core/gpa-calculator/target-calculator'
 import DetailedCalculator from '@/components/core/gpa-calculator/detailed-calculator'
+import PhysicalEducationCalculator from '@/components/core/gpa-calculator/physical-education-calculator'
 import AIQuestion from '@/components/core/gpa-calculator/ai-question'
 import ResultDisplay from '@/components/core/gpa-calculator/result-display'
-import { GPAResult } from '@/types'
+import { GPAResult, DetailedGPAResult, PhysicalEducationResult } from '@/types/gpa-calculator'
 
 export default function GPACalculatorForm() {
   const [calculatorTarget, setCalculatorTarget] = useState<GPAResult | null>(null)
+  const [calculatorDetailed, setCalculatorDetailed] = useState<DetailedGPAResult | null>(null)
+  const [calculatorPhysicalEducation, setCalculatorPhysicalEducation] = useState<PhysicalEducationResult | null>(null)
+  const [activeTab, setActiveTab] = useState('form')
+
+  const handleTabChange = (value: string) => {
+    if (value !== activeTab) {
+      setCalculatorTarget(null)
+      setCalculatorDetailed(null)
+      setCalculatorPhysicalEducation(null)
+      setActiveTab(value)
+    }
+  }
 
   return (
     <div className='max-w-6xl mx-auto space-y-8 py-12 px-6'>
@@ -34,8 +47,8 @@ export default function GPACalculatorForm() {
         </p>
       </div>
 
-      <Tabs defaultValue='form' className='w-full'>
-        <TabsList className='grid w-full grid-cols-3 mb-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl p-2'>
+      <Tabs defaultValue='form' className='w-full' value={activeTab} onValueChange={handleTabChange}>
+        <TabsList className='grid w-full grid-cols-4 mb-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl p-2'>
           <TabsTrigger
             value='form'
             className='data-[state=active]:bg-blue-600 data-[state=active]:text-white dark:data-[state=active]:bg-blue-500'
@@ -49,6 +62,13 @@ export default function GPACalculatorForm() {
           >
             <Icons.Calculator className='w-4 h-4 mr-2' />
             Tính toán GPA
+          </TabsTrigger>
+          <TabsTrigger
+            value='physical'
+            className='data-[state=active]:bg-orange-600 data-[state=active]:text-white dark:data-[state=active]:bg-orange-500'
+          >
+            <Icons.Activity className='w-4 h-4 mr-2' />
+            GPA thể dục
           </TabsTrigger>
           <TabsTrigger
             value='question'
@@ -66,7 +86,11 @@ export default function GPACalculatorForm() {
             </TabsContent>
 
             <TabsContent value='detailed' className='mt-0'>
-              <DetailedCalculator />
+              <DetailedCalculator onResultChange={setCalculatorDetailed} />
+            </TabsContent>
+
+            <TabsContent value='physical' className='mt-0'>
+              <PhysicalEducationCalculator onResultChange={setCalculatorPhysicalEducation} />
             </TabsContent>
 
             <TabsContent value='question' className='mt-0'>
@@ -75,10 +99,55 @@ export default function GPACalculatorForm() {
           </div>
 
           <div className='space-y-6'>
-            <ResultDisplay result={calculatorTarget} />
+            <ResultDisplay
+              result={activeTab === 'form' ? calculatorTarget : null}
+              detailedResult={activeTab === 'detailed' ? calculatorDetailed : null}
+              physicalEducationResult={activeTab === 'physical' ? calculatorPhysicalEducation : null}
+            />
           </div>
         </div>
       </Tabs>
+
+      <Card className='shadow-xl border-0 bg-white dark:bg-gray-800'>
+        <CardHeader className='pb-4'>
+          <CardTitle className='flex items-center text-xl font-bold text-gray-900 dark:text-white'>
+            <Icons.Award className='w-5 h-5 mr-3 text-indigo-600' />
+            Xếp loại tốt nghiệp Duy Tân
+          </CardTitle>
+        </CardHeader>
+        <CardContent className='pt-0'>
+          <div className='grid md:grid-cols-2 gap-4 text-sm'>
+            <div className='space-y-3'>
+              <div className='flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-700'>
+                <span className='font-semibold text-purple-700 dark:text-purple-300'>Xuất sắc</span>
+                <span className='font-bold text-purple-600 dark:text-purple-400'>3.60 - 4.00</span>
+              </div>
+              <div className='flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700'>
+                <span className='font-semibold text-blue-700 dark:text-blue-300'>Giỏi</span>
+                <span className='font-bold text-blue-600 dark:text-blue-400'>3.20 - 3.59</span>
+              </div>
+            </div>
+            <div className='space-y-3'>
+              <div className='flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-700'>
+                <span className='font-semibold text-green-700 dark:text-green-300'>Khá</span>
+                <span className='font-bold text-green-600 dark:text-green-400'>2.50 - 3.19</span>
+              </div>
+              <div className='flex items-center justify-between p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200 dark:border-yellow-700'>
+                <span className='font-semibold text-yellow-700 dark:text-yellow-300'>Trung bình</span>
+                <span className='font-bold text-yellow-600 dark:text-yellow-400'>2.00 - 2.49</span>
+              </div>
+            </div>
+          </div>
+          <div className='mt-4 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-700'>
+            <div className='flex items-start space-x-2'>
+              <Icons.Lightbulb className='w-4 h-4 text-orange-600 dark:text-orange-400 mt-0.5 flex-shrink-0' />
+              <p className='text-xs text-orange-800 dark:text-orange-200'>
+                <strong>Lưu ý:</strong> Hạng tốt nghiệp có thể bị giảm nếu có {'>'}5% tín chỉ học lại hoặc bị kỷ luật.
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <Card className='shadow-xl border-0 bg-white dark:bg-gray-800'>
         <CardHeader>

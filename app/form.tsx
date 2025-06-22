@@ -23,7 +23,7 @@ import {
   projectSubjects,
   essaySubjects,
   presentationSubjects
-} from '../seeds/subject'
+} from '@/seeds/subject'
 
 export default function DuyTanITSupport() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
