@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -12,8 +13,24 @@ import { evaluateDetailedGPA, getGradePoint } from '@/app/tools/gpa-calculator/h
 import GPAHelpDialog from '@/app/tools/gpa-calculator/dialog'
 import { DetailedGPAResult, CreditAllocation } from '@/types/gpa-calculator'
 import { detailedGPASchema, DetailedGPAFormData } from '@/app/schemas/gpa-calculator/validation'
+import { z } from 'zod'
 import { totalCreditOptions, gradeOptions } from '@/seeds/constant'
 import { Badge } from '@/components/ui/badge'
+
+// Schema for basic form validation (allocations managed separately)
+const basicFormSchema = z.object({
+  completed_credits: z
+    .number()
+    .min(1, 'Số tín chỉ đã học phải >= 1')
+    .max(200, 'Số tín chỉ đã học không được vượt quá 200'),
+  current_gpa: z.number().min(0.01, 'GPA hiện tại phải > 0.0').max(4, 'GPA hiện tại không được vượt quá 4.0'),
+  remaining_credits: z
+    .number()
+    .min(1, 'Số tín chỉ còn lại phải >= 1')
+    .max(200, 'Số tín chỉ còn lại không được vượt quá 200')
+})
+
+type BasicFormData = z.infer<typeof basicFormSchema>
 
 interface DetailedCalculatorProps {
   onResultChange?: (result: DetailedGPAResult | null) => void
@@ -30,12 +47,12 @@ export default function DetailedCalculator({ onResultChange }: DetailedCalculato
     watch,
     reset,
     formState: { errors, isValid }
-  } = useForm<DetailedGPAFormData>({
+  } = useForm<BasicFormData>({
+    resolver: zodResolver(basicFormSchema),
     defaultValues: {
       completed_credits: 0,
       current_gpa: 0,
-      remaining_credits: 0,
-      allocations: []
+      remaining_credits: 0
     },
     mode: 'onChange'
   })
@@ -47,7 +64,11 @@ export default function DetailedCalculator({ onResultChange }: DetailedCalculato
   const totalAllocatedCredits = allocations.reduce((sum, allocation) => sum + allocation.credits, 0)
   const remainingToAllocate = remainingCredits - totalAllocatedCredits
 
-  const isFormValid = isValid && completedCredits > 0 && currentGPA > 0 && currentGPA <= 4 && remainingCredits > 0
+  const isAllocationValid = () => {
+    return totalAllocatedCredits === remainingCredits && allocations.every((allocation) => allocation.credits > 0)
+  }
+
+  const isFormValid = isValid && isAllocationValid()
 
   useEffect(() => {
     if (remainingCredits === 0) {
@@ -55,7 +76,7 @@ export default function DetailedCalculator({ onResultChange }: DetailedCalculato
     }
   }, [remainingCredits])
 
-  const handleDetailedSubmit = async (data: DetailedGPAFormData) => {
+  const handleDetailedSubmit = async (data: BasicFormData) => {
     if (!isAllocationValid()) return
 
     setIsCalculating(true)
@@ -101,10 +122,6 @@ export default function DetailedCalculator({ onResultChange }: DetailedCalculato
 
   const removeAllocation = (id: string) => {
     setAllocations((prev) => prev.filter((allocation) => allocation.id !== id))
-  }
-
-  const isAllocationValid = () => {
-    return totalAllocatedCredits === remainingCredits && allocations.every((allocation) => allocation.credits > 0)
   }
 
   const handleReset = () => {
@@ -333,8 +350,8 @@ export default function DetailedCalculator({ onResultChange }: DetailedCalculato
           <div className='flex gap-3'>
             <Button
               type='submit'
-              disabled={!isFormValid || !isAllocationValid() || isCalculating}
-              className='flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800'
+              disabled={!isFormValid || isCalculating}
+              className='flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:opacity-50'
             >
               {isCalculating ? (
                 <>

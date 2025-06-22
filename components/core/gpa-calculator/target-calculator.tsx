@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -29,6 +30,7 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
     watch,
     formState: { errors, isValid }
   } = useForm<GPATargetFormData>({
+    resolver: zodResolver(gpaTargetSchema),
     defaultValues: {
       completed_credits: 0,
       current_gpa: 0,
@@ -42,8 +44,6 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
   const targetGPA = watch('target_gpa')
   const completedCredits = watch('completed_credits')
   const remainingCredits = watch('remaining_credits')
-
-  const isFormValid = isValid && completedCredits > 0 && currentGPA > 0 && targetGPA > 0 && remainingCredits > 0
 
   const handleTargetSubmit = async (data: GPAFormData) => {
     setIsCalculating(true)
@@ -204,7 +204,7 @@ export default function TargetCalculator({ onResultChange }: TargetCalculatorPro
           <div className='flex gap-3'>
             <Button
               type='submit'
-              disabled={!isFormValid || isCalculating}
+              disabled={!isValid || isCalculating}
               className='flex-1 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:opacity-50'
             >
               {isCalculating ? (
