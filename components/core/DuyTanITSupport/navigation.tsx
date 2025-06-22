@@ -4,28 +4,39 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Menu, X, GraduationCap, Sparkles } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
 
   const navLinks = [
     { href: '#home', label: 'Trang chủ' },
     { href: '#services', label: 'Dịch vụ' },
     { href: '#pricing', label: 'Bảng giá' },
     { href: '#about', label: 'Về chúng tôi' },
+    { href: '/tools', label: 'Công cụ hỗ trợ' },
     { href: '#contact', label: 'Liên hệ' }
   ]
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
-    const targetId = href.substring(1)
-    const element = document.getElementById(targetId)
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      if (pathname === '/') {
+        e.preventDefault()
+        const targetId = href.substring(1)
+        const element = document.getElementById(targetId)
 
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }
+      } else {
+        e.preventDefault()
+        router.push('/' + href)
+      }
     }
   }
 
@@ -33,8 +44,7 @@ export function Navigation() {
     <header className='sticky top-0 z-40 bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50 shadow-sm'>
       <div className='container mx-auto px-6 py-4'>
         <div className='flex items-center justify-between'>
-          {/* Logo */}
-          <div className='flex items-center space-x-4'>
+          <Link href='/' className='flex items-center space-x-4 hover:opacity-80 transition-opacity duration-300'>
             <div className='relative'>
               <div className='w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-xl flex items-center justify-center shadow-lg'>
                 <GraduationCap className='w-7 h-7 text-white' />
@@ -49,24 +59,22 @@ export function Navigation() {
                 Duy Tân University • Chuyên nghiệp • Uy tín
               </p>
             </div>
-          </div>
+          </Link>
 
-          {/* Desktop Navigation */}
           <nav className='hidden lg:flex items-center space-x-8'>
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                onClick={(e) => handleSmoothScroll(e, link.href)}
+                onClick={(e) => handleLinkClick(e, link.href)}
                 className='text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium relative group cursor-pointer'
               >
                 {link.label}
                 <span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-600 dark:bg-blue-400 transition-all duration-300 group-hover:w-full'></span>
-              </a>
+              </Link>
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <div className='hidden lg:flex items-center space-x-4'>
             <Link
               href='https://www.facebook.com/profile.php?id=61577172849172'
@@ -80,7 +88,6 @@ export function Navigation() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <div className='flex items-center space-x-2 lg:hidden'>
             <Button variant='ghost' size='sm' onClick={() => setIsMenuOpen(!isMenuOpen)}>
               {isMenuOpen ? <X className='w-6 h-6' /> : <Menu className='w-6 h-6' />}
@@ -88,22 +95,21 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className='lg:hidden mt-6 pb-6 border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300'>
             <nav className='flex flex-col space-y-4 mt-6'>
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={(e) => {
-                    handleSmoothScroll(e, link.href)
+                    handleLinkClick(e, link.href)
                     setIsMenuOpen(false)
                   }}
                   className='text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer'
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <Link
                 href='https://www.facebook.com/profile.php?id=61577172849172'

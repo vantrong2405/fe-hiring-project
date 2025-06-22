@@ -1,39 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PricingTable } from '@/components/core/DuyTanITSupport/pricing-table'
 import { HeroSection } from '@/components/core/DuyTanITSupport/hero-section'
 import { ServicesSection } from '@/components/core/DuyTanITSupport/services-section'
-import {
-  Code2,
-  Database,
-  Brain,
-  Server,
-  Settings,
-  GraduationCap,
-  BookOpen,
-  MessageCircle,
-  Facebook,
-  Instagram,
-  Youtube,
-  ArrowRight,
-  CheckCircle,
-  Award,
-  HeadphonesIcon,
-  ChevronDown,
-  ChevronUp,
-  Clock
-} from 'lucide-react'
+import { Icons } from '@/components/icons/icon'
 import Link from 'next/link'
 import Image from 'next/image'
 
 import { faqData, testimonials, features } from '@/seeds/content'
 
-import { Navigation } from '@/components/core/DuyTanITSupport/navigation'
-import { FloatingContact } from '@/components/core/DuyTanITSupport/floating-contact'
 import { TestimonialCard } from '@/components/core/DuyTanITSupport/testimonial-card'
 import {
   programmingSubjects,
@@ -50,18 +29,27 @@ export default function DuyTanITSupport() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash.substring(1))
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }
+      }, 100)
+    }
+  }, [])
+
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index)
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 transition-colors duration-300'>
-      {/* Floating Contact Button */}
-      <FloatingContact />
-
-      {/* Header */}
-      <Navigation />
-
+    <>
       <HeroSection />
       <ServicesSection />
 
@@ -88,56 +76,56 @@ export default function DuyTanITSupport() {
                 value='programming'
                 className='data-[state=active]:bg-blue-600 data-[state=active]:text-white dark:data-[state=active]:bg-blue-500'
               >
-                <Code2 className='w-4 h-4 mr-2' />
+                <Icons.Code2 className='w-4 h-4 mr-2' />
                 Lập trình
               </TabsTrigger>
               <TabsTrigger
                 value='system'
                 className='data-[state=active]:bg-green-600 data-[state=active]:text-white dark:data-[state=active]:bg-green-500'
               >
-                <Server className='w-4 h-4 mr-2' />
+                <Icons.Server className='w-4 h-4 mr-2' />
                 Hệ thống
               </TabsTrigger>
               <TabsTrigger
                 value='database'
                 className='data-[state=active]:bg-purple-600 data-[state=active]:text-white dark:data-[state=active]:bg-purple-500'
               >
-                <Database className='w-4 h-4 mr-2' />
+                <Icons.Database className='w-4 h-4 mr-2' />
                 CSDL
               </TabsTrigger>
               <TabsTrigger
                 value='ai'
                 className='data-[state=active]:bg-orange-600 data-[state=active]:text-white dark:data-[state=active]:bg-orange-500'
               >
-                <Brain className='w-4 h-4 mr-2' />
+                <Icons.Brain className='w-4 h-4 mr-2' />
                 AI
               </TabsTrigger>
               <TabsTrigger
                 value='software'
                 className='data-[state=active]:bg-red-600 data-[state=active]:text-white dark:data-[state=active]:bg-red-500'
               >
-                <Settings className='w-4 h-4 mr-2' />
+                <Icons.Settings className='w-4 h-4 mr-2' />
                 Phần mềm
               </TabsTrigger>
               <TabsTrigger
                 value='projects'
                 className='data-[state=active]:bg-indigo-600 data-[state=active]:text-white dark:data-[state=active]:bg-indigo-500'
               >
-                <GraduationCap className='w-4 h-4 mr-2' />
+                <Icons.GraduationCap className='w-4 h-4 mr-2' />
                 Đồ án
               </TabsTrigger>
               <TabsTrigger
                 value='essays'
                 className='data-[state=active]:bg-teal-600 data-[state=active]:text-white dark:data-[state=active]:bg-teal-500'
               >
-                <BookOpen className='w-4 h-4 mr-2' />
+                <Icons.BookOpen className='w-4 h-4 mr-2' />
                 Tiểu luận
               </TabsTrigger>
               <TabsTrigger
                 value='presentations'
                 className='data-[state=active]:bg-pink-600 data-[state=active]:text-white dark:data-[state=active]:bg-pink-500'
               >
-                <Settings className='w-4 h-4 mr-2' />
+                <Icons.Settings className='w-4 h-4 mr-2' />
                 Slide & Design
               </TabsTrigger>
             </TabsList>
@@ -147,7 +135,7 @@ export default function DuyTanITSupport() {
                 title='Các môn lập trình cốt lõi'
                 description='Hỗ trợ các ngôn ngữ lập trình từ cơ bản đến nâng cao'
                 subjects={programmingSubjects}
-                icon={Code2}
+                icon={Icons.Code2}
                 color='blue'
               />
             </TabsContent>
@@ -157,7 +145,7 @@ export default function DuyTanITSupport() {
                 title='Các môn công nghệ & hệ thống'
                 description='Hệ điều hành, mạng máy tính, hệ phân tán'
                 subjects={systemSubjects}
-                icon={Server}
+                icon={Icons.Server}
                 color='green'
               />
             </TabsContent>
@@ -167,7 +155,7 @@ export default function DuyTanITSupport() {
                 title='Các môn cơ sở dữ liệu'
                 description='Thiết kế và quản trị cơ sở dữ liệu'
                 subjects={databaseSubjects}
-                icon={Database}
+                icon={Icons.Database}
                 color='purple'
               />
             </TabsContent>
@@ -177,7 +165,7 @@ export default function DuyTanITSupport() {
                 title='Các môn thuật toán & AI'
                 description='Cấu trúc dữ liệu, giải thuật và trí tuệ nhân tạo'
                 subjects={algorithmSubjects}
-                icon={Brain}
+                icon={Icons.Brain}
                 color='orange'
               />
             </TabsContent>
@@ -187,7 +175,7 @@ export default function DuyTanITSupport() {
                 title='Các môn phát triển phần mềm'
                 description='Phân tích, thiết kế và kiểm thử phần mềm'
                 subjects={softwareSubjects}
-                icon={Settings}
+                icon={Icons.Settings}
                 color='red'
               />
             </TabsContent>
@@ -197,7 +185,7 @@ export default function DuyTanITSupport() {
                 title='Các đồ án CDIO & tốt nghiệp'
                 description='Đồ án lớn, khóa luận tốt nghiệp và dự án chuyên ngành'
                 subjects={projectSubjects}
-                icon={GraduationCap}
+                icon={Icons.GraduationCap}
                 color='indigo'
               />
             </TabsContent>
@@ -207,7 +195,7 @@ export default function DuyTanITSupport() {
                 title='Các môn tiểu luận & báo cáo'
                 description='Tư tưởng chính trị, lịch sử và tin học ứng dụng'
                 subjects={essaySubjects}
-                icon={BookOpen}
+                icon={Icons.BookOpen}
                 color='teal'
               />
             </TabsContent>
@@ -217,7 +205,7 @@ export default function DuyTanITSupport() {
                 title='Dịch vụ slide & thiết kế'
                 description='Slide thuyết trình, báo cáo Word, Excel và thiết kế đồ họa'
                 subjects={presentationSubjects}
-                icon={Settings}
+                icon={Icons.Settings}
                 color='pink'
               />
             </TabsContent>
@@ -231,28 +219,28 @@ export default function DuyTanITSupport() {
             <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-6'>
               <div className='text-center'>
                 <div className='w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4'>
-                  <CheckCircle className='w-8 h-8 text-white' />
+                  <Icons.CheckCircle className='w-8 h-8 text-white' />
                 </div>
                 <h4 className='font-semibold text-gray-900 dark:text-white mb-2'>Cọc 25%</h4>
                 <p className='text-gray-600 dark:text-gray-300 text-sm'>Thanh toán trước 25% để bắt đầu dự án</p>
               </div>
               <div className='text-center'>
                 <div className='w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-400 dark:to-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4'>
-                  <Settings className='w-8 h-8 text-white' />
+                  <Icons.Settings className='w-8 h-8 text-white' />
                 </div>
                 <h4 className='font-semibold text-gray-900 dark:text-white mb-2'>Setup miễn phí</h4>
                 <p className='text-gray-600 dark:text-gray-300 text-sm'>Hỗ trợ cài đặt môi trường, tools</p>
               </div>
               <div className='text-center'>
                 <div className='w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-400 dark:to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4'>
-                  <BookOpen className='w-8 h-8 text-white' />
+                  <Icons.BookOpen className='w-8 h-8 text-white' />
                 </div>
                 <h4 className='font-semibold text-gray-900 dark:text-white mb-2'>Giảng giải</h4>
                 <p className='text-gray-600 dark:text-gray-300 text-sm'>Hướng dẫn chi tiết logic và cách làm</p>
               </div>
               <div className='text-center'>
                 <div className='w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4'>
-                  <Clock className='w-8 h-8 text-white' />
+                  <Icons.Clock className='w-8 h-8 text-white' />
                 </div>
                 <h4 className='font-semibold text-gray-900 dark:text-white mb-2'>Đúng deadline</h4>
                 <p className='text-gray-600 dark:text-gray-300 text-sm'>Hoàn thành đúng thời gian cam kết</p>
@@ -282,9 +270,9 @@ export default function DuyTanITSupport() {
                 <div
                   className={`w-24 h-24 bg-gradient-to-br from-${feature.color}-500 to-${feature.color}-600 dark:from-${feature.color}-400 dark:to-${feature.color}-500 rounded-3xl flex items-center justify-center mx-auto mb-8 group-hover:scale-110 transition-transform duration-300 shadow-xl`}
                 >
-                  {index === 0 && <Award className='w-12 h-12 text-white' />}
-                  {index === 1 && <GraduationCap className='w-12 h-12 text-white' />}
-                  {index === 2 && <HeadphonesIcon className='w-12 h-12 text-white' />}
+                  {index === 0 && <Icons.Award className='w-12 h-12 text-white' />}
+                  {index === 1 && <Icons.GraduationCap className='w-12 h-12 text-white' />}
+                  {index === 2 && <Icons.HeadphonesIcon className='w-12 h-12 text-white' />}
                 </div>
                 <h3 className='text-2xl font-bold text-gray-900 dark:text-white mb-4'>{feature.title}</h3>
                 <p className='text-gray-600 dark:text-gray-300 leading-relaxed'>{feature.description}</p>
@@ -343,9 +331,9 @@ export default function DuyTanITSupport() {
                   </CardTitle>
                   <div className='flex-shrink-0'>
                     {openFaq === index ? (
-                      <ChevronUp className='w-6 h-6 text-blue-600 dark:text-blue-400' />
+                      <Icons.ChevronUp className='w-6 h-6 text-blue-600 dark:text-blue-400' />
                     ) : (
-                      <ChevronDown className='w-6 h-6 text-gray-400 dark:text-gray-500' />
+                      <Icons.ChevronDown className='w-6 h-6 text-gray-400 dark:text-gray-500' />
                     )}
                   </div>
                 </CardHeader>
@@ -388,16 +376,16 @@ export default function DuyTanITSupport() {
                     rel='noopener noreferrer'
                   >
                     <Button className='bg-white text-blue-700 hover:bg-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105'>
-                      <Facebook className='mr-3 w-6 h-6' />
+                      <Icons.Facebook className='mr-3 w-6 h-6' />
                       Ghé thăm trang Facebook
-                      <ArrowRight className='ml-3 w-5 h-5' />
+                      <Icons.ArrowRight className='ml-3 w-5 h-5' />
                     </Button>
                   </Link>
                   <Link href='https://m.me/61577172849172' target='_blank' rel='noopener noreferrer'>
                     <Button className='bg-green-600 hover:bg-green-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105'>
-                      <MessageCircle className='mr-3 w-6 h-6' />
+                      <Icons.MessageCircle className='mr-3 w-6 h-6' />
                       Chat qua Messenger
-                      <ArrowRight className='ml-3 w-5 h-5' />
+                      <Icons.ArrowRight className='ml-3 w-5 h-5' />
                     </Button>
                   </Link>
                 </div>
@@ -428,164 +416,6 @@ export default function DuyTanITSupport() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className='bg-gray-900 dark:bg-black text-white py-16'>
-        <div className='container mx-auto px-6'>
-          <div className='grid md:grid-cols-4 gap-12'>
-            <div className='space-y-6'>
-              <div className='flex items-center space-x-3'>
-                <div className='w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-xl flex items-center justify-center'>
-                  <GraduationCap className='w-6 h-6 text-white' />
-                </div>
-                <div>
-                  <h3 className='font-bold text-xl'>Hỗ Trợ Đồ Án CNTT</h3>
-                  <p className='text-sm text-gray-400'>Duy Tân University</p>
-                </div>
-              </div>
-              <p className='text-gray-400 leading-relaxed'>
-                Đồng hành cùng sinh viên IT Duy Tân trong hành trình học tập và phát triển sự nghiệp.
-              </p>
-              <div className='flex space-x-4'>
-                <Link
-                  href='https://www.facebook.com/profile.php?id=61577172849172'
-                  rel='noopener noreferrer'
-                  className='w-12 h-12 bg-gray-800 dark:bg-gray-700 rounded-xl flex items-center justify-center hover:bg-blue-600 transition-all duration-300 transform hover:scale-110'
-                >
-                  <Facebook className='w-6 h-6' />
-                </Link>
-                <Link
-                  href='#'
-                  className='w-12 h-12 bg-gray-800 dark:bg-gray-700 rounded-xl flex items-center justify-center hover:bg-pink-600 transition-all duration-300 transform hover:scale-110'
-                >
-                  <Instagram className='w-6 h-6' />
-                </Link>
-                <Link
-                  href='#'
-                  className='w-12 h-12 bg-gray-800 dark:bg-gray-700 rounded-xl flex items-center justify-center hover:bg-red-600 transition-all duration-300 transform hover:scale-110'
-                >
-                  <Youtube className='w-6 h-6' />
-                </Link>
-              </div>
-            </div>
-
-            <div>
-              <h4 className='font-semibold text-lg mb-6'>Dịch vụ</h4>
-              <ul className='space-y-3 text-gray-400'>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Lập trình cơ bản
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Cơ sở dữ liệu
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    AI & Machine Learning
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Đồ án CDIO
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Tiểu luận & Báo cáo
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Slide & Thiết kế
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className='font-semibold text-lg mb-6'>Hỗ trợ</h4>
-              <ul className='space-y-3 text-gray-400'>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Câu hỏi thường gặp
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Hướng dẫn thanh toán
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Chính sách bảo mật
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href='#'
-                    className='hover:text-white transition-colors hover:translate-x-1 transform duration-200 inline-block'
-                  >
-                    Điều khoản dịch vụ
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className='font-semibold text-lg mb-6'>Liên hệ</h4>
-              <div className='space-y-4 text-gray-400'>
-                <div className='flex items-center space-x-3'>
-                  <MessageCircle className='w-5 h-5 text-blue-400' />
-                  <span>Messenger 24/7</span>
-                </div>
-                <div className='flex items-center space-x-3'>
-                  <Facebook className='w-5 h-5 text-blue-400' />
-                  <span>Facebook Page</span>
-                </div>
-                <div className='flex items-center space-x-3'>
-                  <Clock className='w-5 h-5 text-green-400' />
-                  <span>Phản hồi trong 30 phút</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='border-t border-gray-800 dark:border-gray-700 mt-12 pt-8 text-center'>
-            <p className='text-gray-400'>&copy; 2024 Hỗ Trợ Đồ Án CNTT Duy Tân. Tất cả quyền được bảo lưu.</p>
-            <p className='text-sm text-gray-500 mt-2'>Được thiết kế với ❤️ cho sinh viên Duy Tân</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+    </>
   )
 }
