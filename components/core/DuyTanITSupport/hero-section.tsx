@@ -47,14 +47,6 @@ export function HeroSection() {
                   <ArrowRight className='ml-2 w-5 h-5' />
                 </Button>
               </Link>
-              <Button
-                size='lg'
-                variant='outline'
-                className='border-2 border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/50 shadow-lg'
-              >
-                <BookOpen className='w-5 h-5 mr-2' />
-                Xem bảng giá
-              </Button>
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6 pt-8'>

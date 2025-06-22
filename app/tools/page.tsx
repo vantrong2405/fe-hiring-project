@@ -291,7 +291,7 @@ export default function ToolsPage() {
                 </Button>
               </Link>
               <Link href='/'>
-                <Button variant='outline' className='border-white text-white hover:bg-white/10'>
+                <Button variant='outline' className='border-white text-gray-700 hover:bg-white/10'>
                   Tìm hiểu thêm dịch vụ
                 </Button>
               </Link>

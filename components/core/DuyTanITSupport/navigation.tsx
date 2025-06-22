@@ -14,7 +14,6 @@ export function Navigation() {
   const navLinks = [
     { href: '#home', label: 'Trang chủ' },
     { href: '#services', label: 'Dịch vụ' },
-    { href: '#pricing', label: 'Bảng giá' },
     { href: '#about', label: 'Về chúng tôi' },
     { href: '/tools', label: 'Công cụ hỗ trợ' },
     { href: '#contact', label: 'Liên hệ' }

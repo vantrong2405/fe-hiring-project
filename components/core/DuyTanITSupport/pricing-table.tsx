@@ -1,6 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Badge } from '@/components/ui/badge'
 import type { Subject } from '@/types/subjects.type'
 import type { LucideIcon } from 'lucide-react'
 
@@ -46,17 +45,6 @@ export function PricingTable({ title, description, subjects, icon: Icon, color }
     pink: 'text-pink-600 dark:text-pink-400'
   }
 
-  const badgeClasses = {
-    blue: 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300',
-    green: 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300',
-    purple: 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300',
-    orange: 'bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300',
-    red: 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300',
-    indigo: 'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-800 dark:text-indigo-300',
-    teal: 'bg-teal-100 dark:bg-teal-900/50 text-teal-800 dark:text-teal-300',
-    pink: 'bg-pink-100 dark:bg-pink-900/50 text-pink-800 dark:text-pink-300'
-  }
-
   return (
     <Card className='shadow-2xl border-0 bg-white dark:bg-gray-800'>
       <CardHeader className={`${headerClasses[color as keyof typeof headerClasses]} text-white rounded-t-lg`}>
@@ -72,9 +60,7 @@ export function PricingTable({ title, description, subjects, icon: Icon, color }
             <TableRow className='bg-gray-50 dark:bg-gray-700'>
               <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Mã môn</TableHead>
               <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Tên môn học</TableHead>
-              <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Tín chỉ</TableHead>
               <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Công nghệ</TableHead>
-              <TableHead className='font-semibold text-gray-900 dark:text-gray-100 text-right'>Giá</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -84,20 +70,7 @@ export function PricingTable({ title, description, subjects, icon: Icon, color }
                   {subject.code}
                 </TableCell>
                 <TableCell className='font-medium text-gray-900 dark:text-gray-100'>{subject.name}</TableCell>
-                <TableCell>
-                  <Badge
-                    variant='outline'
-                    className='text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600'
-                  >
-                    {subject.credits}
-                  </Badge>
-                </TableCell>
                 <TableCell className='text-sm text-gray-600 dark:text-gray-400'>{subject.tech}</TableCell>
-                <TableCell className='text-right'>
-                  <Badge className={`${badgeClasses[color as keyof typeof badgeClasses]} font-semibold`}>
-                    {subject.price}
-                  </Badge>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>
