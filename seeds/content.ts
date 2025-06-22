@@ -11,20 +11,16 @@ export const faqData: FAQ[] = [
     answer:
       'Thời gian hoàn thành phụ thuộc vào độ phức tạp: Đồ án môn học đơn giản (3-7 ngày), đồ án phức tạp (1-3 tuần), đồ án CDIO (2-6 tuần), khóa luận tốt nghiệp (1-3 tháng). Chúng mình sẽ thống nhất timeline cụ thể khi tư vấn.'
   },
+
   {
-    question: 'Có hỗ trợ sau khi bàn giao không?',
+    question: 'Có thể làm đồ án online không?',
     answer:
-      'Có! Chúng mình hỗ trợ miễn phí trong 2 tuần sau khi bàn giao để giải đáp thắc mắc, sửa lỗi nhỏ (nếu có), và hướng dẫn thuyết trình. Đối với đồ án lớn, thời gian hỗ trợ có thể lên đến 1 tháng.'
+      'Hoàn toàn có thể! Chúng mình làm việc online 100%, hỗ trợ qua Zalo, Telegram hoặc email. Bạn có thể theo dõi tiến độ và trao đổi mọi lúc, rất tiện lợi và hiệu quả.'
   },
   {
-    question: 'Làm sao để đảm bảo không bị phát hiện đạo văn?',
+    question: 'Nếu nhờ anh hỗ trợ, có thể xin thêm tài liệu cũ để ôn thi không?',
     answer:
-      'Chúng mình luôn viết code từ đầu, không copy-paste từ internet. Báo cáo được viết bằng ngôn ngữ tự nhiên, tham khảo nhiều nguồn khác nhau và có trích dẫn rõ ràng. Quan trọng nhất, bạn cần hiểu rõ đồ án để có thể trình bày tự tin.'
-  },
-  {
-    question: 'Phương thức thanh toán như thế nào?',
-    answer:
-      'Chúng mình nhận thanh toán qua chuyển khoản ngân hàng, Momo, ZaloPay. Quy trình: Cọc 25% khi bắt đầu → 50% khi hoàn thành 70% công việc → 25% còn lại khi bàn giao hoàn chỉnh. Với đồ án lớn có thể chia nhiều đợt hơn.'
+      'Có nhé! Nếu có tài liệu liên quan đến môn học đó, mình sẽ gửi bạn để tham khảo thêm. Điều này giúp bạn hiểu sâu hơn và chuẩn bị tốt cho kỳ thi.'
   }
 ]
 
@@ -41,7 +37,7 @@ export const testimonials: Testimonial[] = [
     name: 'Trần Thị B',
     role: 'Sinh viên KHMT K24 • CS 417',
     content:
-      'Mình đã stuck với đồ án AI suốt 2 tuần, nhờ anh mà chỉ trong 3 ngày đã hoàn thành. Giá cả hợp lý, chất lượng tuyệt vời! Anh còn hướng dẫn em setup môi trường nữa.',
+      'Mình đã stuck với đồ án AI suốt 2 tuần, nhờ anh mà chỉ trong 3 ngày đã hoàn thành. Hỗ trợ tận tâm, chất lượng tuyệt vời! Anh còn hướng dẫn em setup môi trường nữa.',
     rating: 5,
     avatar: 'T'
   },
