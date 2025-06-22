@@ -1,8 +1,6 @@
 export interface Subject {
   code: string
   name: string
-  credits: string
-  price: string
   tech: string
 }
 
