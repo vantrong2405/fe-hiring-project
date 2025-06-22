@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -27,6 +28,7 @@ export default function PhysicalEducationCalculator({ onResultChange }: Physical
     watch,
     formState: { errors, isValid }
   } = useForm<PhysicalEducationFormData>({
+    resolver: zodResolver(physicalEducationSchema),
     defaultValues: {
       subject1_gpa: 0,
       subject2_gpa: 0,
@@ -38,8 +40,6 @@ export default function PhysicalEducationCalculator({ onResultChange }: Physical
   const subject1GPA = watch('subject1_gpa')
   const subject2GPA = watch('subject2_gpa')
   const subject3GPA = watch('subject3_gpa')
-
-  const isFormValid = isValid && subject1GPA > 0 && subject2GPA > 0 && subject3GPA > 0
 
   const currentAverage =
     subject1GPA > 0 && subject2GPA > 0 && subject3GPA > 0
@@ -179,7 +179,7 @@ export default function PhysicalEducationCalculator({ onResultChange }: Physical
           <div className='flex gap-3'>
             <Button
               type='submit'
-              disabled={!isFormValid || isCalculating}
+              disabled={!isValid || isCalculating}
               className='flex-1 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:opacity-50'
             >
               {isCalculating ? (

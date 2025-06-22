@@ -3,7 +3,7 @@
 import CustomDialog from '@/components/ui/CustomDialog'
 import { IDialogConfig } from '@/types/common.i'
 import { GPAHelpContent } from '../../core/gpa-calculator/help-content'
-import { DetailedGPAHelpContent } from '@/components/core/gpa-calculator/detailed-help-content'
+import { DetailedGPAHelpContent } from '@/app/core/gpa-calculator/detailed-help-content'
 
 export interface IGPAHelpDialogProps {
   targetDialog: {
