@@ -55,26 +55,43 @@ export function PricingTable({ title, description, subjects, icon: Icon, color }
         <CardDescription className='text-white/90'>{description}</CardDescription>
       </CardHeader>
       <CardContent className='p-0'>
-        <Table>
-          <TableHeader>
-            <TableRow className='bg-gray-50 dark:bg-gray-700'>
-              <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Mã môn</TableHead>
-              <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Tên môn học</TableHead>
-              <TableHead className='font-semibold text-gray-900 dark:text-gray-100'>Công nghệ</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {subjects.map((subject, index) => (
-              <TableRow key={index} className={`${hoverClasses[color as keyof typeof hoverClasses]} transition-colors`}>
-                <TableCell className={`font-mono font-semibold ${codeClasses[color as keyof typeof codeClasses]}`}>
-                  {subject.code}
-                </TableCell>
-                <TableCell className='font-medium text-gray-900 dark:text-gray-100'>{subject.name}</TableCell>
-                <TableCell className='text-sm text-gray-600 dark:text-gray-400'>{subject.tech}</TableCell>
+        <div className='overflow-x-auto'>
+          <Table className='min-w-full'>
+            <TableHeader>
+              <TableRow className='bg-gray-50 dark:bg-gray-700'>
+                <TableHead className='font-semibold text-gray-900 dark:text-gray-100 whitespace-nowrap px-4 py-3'>
+                  Mã môn
+                </TableHead>
+                <TableHead className='font-semibold text-gray-900 dark:text-gray-100 whitespace-nowrap px-4 py-3 min-w-[200px]'>
+                  Tên môn học
+                </TableHead>
+                <TableHead className='font-semibold text-gray-900 dark:text-gray-100 whitespace-nowrap px-4 py-3 min-w-[150px]'>
+                  Công nghệ
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {subjects.map((subject, index) => (
+                <TableRow
+                  key={index}
+                  className={`${hoverClasses[color as keyof typeof hoverClasses]} transition-colors`}
+                >
+                  <TableCell
+                    className={`font-mono font-semibold ${codeClasses[color as keyof typeof codeClasses]} whitespace-nowrap px-4 py-3`}
+                  >
+                    {subject.code}
+                  </TableCell>
+                  <TableCell className='font-medium text-gray-900 dark:text-gray-100 px-4 py-3 min-w-[200px]'>
+                    {subject.name}
+                  </TableCell>
+                  <TableCell className='text-sm text-gray-600 dark:text-gray-400 px-4 py-3 min-w-[150px]'>
+                    {subject.tech}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   )

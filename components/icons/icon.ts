@@ -40,7 +40,8 @@ import {
   Plus,
   Edit2,
   Activity,
-  Info
+  Info,
+  AlertTriangle
 } from 'lucide-react'
 
 export const Icons = {
@@ -85,5 +86,6 @@ export const Icons = {
   Plus,
   Edit2,
   Activity,
-  Info
+  Info,
+  AlertTriangle
 }

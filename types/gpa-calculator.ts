@@ -76,3 +76,29 @@ export interface PhysicalEducationFormData {
   subject2_gpa: number
   subject3_gpa: number
 }
+
+export interface GradeColumn {
+  id: string
+  name: string
+  percentage: number
+  currentScore: number
+}
+
+export interface PassingGradeResult {
+  status: 'invalid' | 'possible' | 'impossible' | 'already_passed'
+  message: string
+  currentTotal: number
+  finalExamPercentage: number
+  requiredFinalScore: number
+  isAchievable: boolean
+  icon: string
+  color: string
+  advice: string
+  columns: GradeColumn[]
+  totalPercentageUsed: number
+  warning?: string
+}
+
+export interface PassingGradeFormData {
+  columns: GradeColumn[]
+}
