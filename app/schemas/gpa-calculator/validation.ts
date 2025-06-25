@@ -39,6 +39,25 @@ export const physicalEducationSchema = z.object({
   subject3_gpa: z.number().min(0.01, 'GPA môn thể dục 3 phải > 0.0').max(4, 'GPA không được vượt quá 4.0')
 })
 
+export const gradeColumnSchema = z.object({
+  id: z.string(),
+  name: z.string().min(1, 'Tên cột không được để trống'),
+  percentage: z.number().min(0.1, 'Tỷ lệ phải lớn hơn 0%').max(100, 'Tỷ lệ không được vượt quá 100%'),
+  currentScore: z.number().min(0, 'Điểm phải từ 0 trở lên').max(10, 'Điểm không được vượt quá 10')
+})
+
+export const passingGradeSchema = z.object({
+  columns: z.array(gradeColumnSchema).min(1, 'Phải có ít nhất 1 cột điểm')
+})
+
+export const basicFormSchema = z.object({
+  ready: z.boolean()
+})
+
+// Type definitions
 export type GPATargetFormData = z.infer<typeof gpaTargetSchema>
 export type DetailedGPAFormData = z.infer<typeof detailedGPASchema>
 export type PhysicalEducationFormData = z.infer<typeof physicalEducationSchema>
+export type GradeColumnFormData = z.infer<typeof gradeColumnSchema>
+export type PassingGradeFormData = z.infer<typeof passingGradeSchema>
+export type BasicFormData = z.infer<typeof basicFormSchema>

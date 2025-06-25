@@ -4,7 +4,9 @@ import {
   DetailedGPAResult,
   DetailedGPAFormData,
   CreditAllocation,
-  PhysicalEducationResult
+  PhysicalEducationResult,
+  PassingGradeFormData,
+  PassingGradeResult
 } from '@/types/gpa-calculator'
 
 function getGraduationRank(gpa: number): { rank: string; description: string } {
@@ -482,5 +484,123 @@ export function evaluatePhysicalEducationGPA(
         subject3: subject3GPA
       }
     }
+  }
+}
+
+export function calculatePassingGrade(data: PassingGradeFormData): PassingGradeResult {
+  const { columns } = data
+
+  const totalPercentageUsed = columns.reduce((sum, col) => sum + col.percentage, 0)
+
+  if (totalPercentageUsed > 100) {
+    return {
+      status: 'invalid',
+      message: 'Tổng tỷ lệ phần trăm vượt quá 100%',
+      currentTotal: 0,
+      finalExamPercentage: 0,
+      requiredFinalScore: 0,
+      isAchievable: false,
+      icon: '❌',
+      color: 'text-red-600',
+      advice: 'Vui lòng điều chỉnh tỷ lệ phần trăm các cột',
+      columns,
+      totalPercentageUsed,
+      warning: 'Tổng tỷ lệ không được vượt quá 100%'
+    }
+  }
+
+  const currentTotal = columns.reduce((sum, col) => {
+    return sum + (col.currentScore * col.percentage) / 100
+  }, 0)
+
+  const finalExamPercentage = 100 - totalPercentageUsed
+
+  if (finalExamPercentage === 0) {
+    if (currentTotal >= 4.0) {
+      return {
+        status: 'already_passed',
+        message: `Bạn đã qua môn với điểm hiện tại ${currentTotal.toFixed(2)}`,
+        currentTotal,
+        finalExamPercentage: 0,
+        requiredFinalScore: 0,
+        isAchievable: true,
+        icon: '🎉',
+        color: 'text-green-600',
+        advice: 'Chúc mừng! Bạn đã hoàn thành môn học này.',
+        columns,
+        totalPercentageUsed
+      }
+    } else {
+      return {
+        status: 'impossible',
+        message: `Không thể qua môn - điểm hiện tại: ${currentTotal.toFixed(2)}`,
+        currentTotal,
+        finalExamPercentage: 0,
+        requiredFinalScore: 0,
+        isAchievable: false,
+        icon: '😞',
+        color: 'text-red-600',
+        advice: 'Rất tiếc, điểm hiện tại không đủ để qua môn.',
+        columns,
+        totalPercentageUsed
+      }
+    }
+  }
+
+  const requiredTotal = 4.0
+  const pointsNeeded = requiredTotal - currentTotal
+  const requiredFinalScore = pointsNeeded / (finalExamPercentage / 100)
+
+  const isAchievable = requiredFinalScore >= 1.0 && requiredFinalScore <= 10.0
+
+  if (requiredFinalScore < 1.0) {
+    return {
+      status: 'already_passed',
+      message: `Bạn đã qua môn! Chỉ cần 1.0 điểm cuối kỳ (tối thiểu)`,
+      currentTotal,
+      finalExamPercentage,
+      requiredFinalScore: 1.0,
+      isAchievable: true,
+      icon: '🎉',
+      color: 'text-green-600',
+      advice: 'Chúc mừng! Bạn chỉ cần điểm cuối kỳ tối thiểu để qua môn.',
+      columns,
+      totalPercentageUsed
+    }
+  }
+
+  if (!isAchievable) {
+    return {
+      status: 'impossible',
+      message: `Không thể qua môn - cần ${requiredFinalScore.toFixed(2)} điểm cuối kỳ (> 10.0)`,
+      currentTotal,
+      finalExamPercentage,
+      requiredFinalScore,
+      isAchievable: false,
+      icon: '😞',
+      color: 'text-red-600',
+      advice: 'Rất tiếc, để qua môn cần điểm cuối kỳ vượt quá thang điểm.',
+      columns,
+      totalPercentageUsed
+    }
+  }
+
+  return {
+    status: 'possible',
+    message: `Bạn cần ít nhất ${requiredFinalScore.toFixed(2)} điểm cuối kỳ (${finalExamPercentage}%) để qua môn`,
+    currentTotal,
+    finalExamPercentage,
+    requiredFinalScore,
+    isAchievable: true,
+    icon: '📊',
+    color: 'text-blue-600',
+    advice:
+      requiredFinalScore >= 8
+        ? 'Cần nỗ lực nhiều hơn cho kỳ thi cuối kỳ!'
+        : requiredFinalScore >= 5
+          ? 'Cần chuẩn bị tốt cho kỳ thi cuối kỳ.'
+          : 'Điểm cuối kỳ cần thiết khá dễ đạt.',
+    columns,
+    totalPercentageUsed
   }
 }

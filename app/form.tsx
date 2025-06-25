@@ -58,77 +58,79 @@ export default function DuyTanITSupport() {
         id='pricing'
         className='py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300'
       >
-        <div className='container mx-auto px-6'>
-          <div className='text-center mb-16'>
-            <h2 className='text-4xl lg:text-5xl font-bold mb-6'>
+        <div className='container mx-auto px-4 sm:px-6'>
+          <div className='text-center mb-12 sm:mb-16'>
+            <h2 className='text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6'>
               <span className='bg-gradient-to-r from-gray-900 to-blue-900 dark:from-white dark:to-blue-300 bg-clip-text text-transparent'>
                 Dịch vụ hỗ trợ
               </span>
             </h2>
-            <p className='text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed'>
+            <p className='text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0'>
               Hỗ trợ toàn diện cho từng môn học với chất lượng đảm bảo
             </p>
           </div>
 
           <Tabs defaultValue='programming' className='w-full'>
-            <TabsList className='grid w-full grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 mb-12 bg-white dark:bg-gray-800 shadow-lg rounded-xl p-2'>
-              <TabsTrigger
-                value='programming'
-                className='data-[state=active]:bg-blue-600 data-[state=active]:text-white dark:data-[state=active]:bg-blue-500'
-              >
-                <Icons.Code2 className='w-4 h-4 mr-2' />
-                Lập trình
-              </TabsTrigger>
-              <TabsTrigger
-                value='system'
-                className='data-[state=active]:bg-green-600 data-[state=active]:text-white dark:data-[state=active]:bg-green-500'
-              >
-                <Icons.Server className='w-4 h-4 mr-2' />
-                Hệ thống
-              </TabsTrigger>
-              <TabsTrigger
-                value='database'
-                className='data-[state=active]:bg-purple-600 data-[state=active]:text-white dark:data-[state=active]:bg-purple-500'
-              >
-                <Icons.Database className='w-4 h-4 mr-2' />
-                CSDL
-              </TabsTrigger>
-              <TabsTrigger
-                value='ai'
-                className='data-[state=active]:bg-orange-600 data-[state=active]:text-white dark:data-[state=active]:bg-orange-500'
-              >
-                <Icons.Brain className='w-4 h-4 mr-2' />
-                AI
-              </TabsTrigger>
-              <TabsTrigger
-                value='software'
-                className='data-[state=active]:bg-red-600 data-[state=active]:text-white dark:data-[state=active]:bg-red-500'
-              >
-                <Icons.Settings className='w-4 h-4 mr-2' />
-                Phần mềm
-              </TabsTrigger>
-              <TabsTrigger
-                value='projects'
-                className='data-[state=active]:bg-indigo-600 data-[state=active]:text-white dark:data-[state=active]:bg-indigo-500'
-              >
-                <Icons.GraduationCap className='w-4 h-4 mr-2' />
-                Đồ án
-              </TabsTrigger>
-              <TabsTrigger
-                value='essays'
-                className='data-[state=active]:bg-teal-600 data-[state=active]:text-white dark:data-[state=active]:bg-teal-500'
-              >
-                <Icons.BookOpen className='w-4 h-4 mr-2' />
-                Tiểu luận
-              </TabsTrigger>
-              <TabsTrigger
-                value='presentations'
-                className='data-[state=active]:bg-pink-600 data-[state=active]:text-white dark:data-[state=active]:bg-pink-500'
-              >
-                <Icons.Settings className='w-4 h-4 mr-2' />
-                Slide & Design
-              </TabsTrigger>
-            </TabsList>
+            <div className='mb-12 overflow-x-auto'>
+              <TabsList className='flex w-max min-w-full bg-white dark:bg-gray-800 shadow-lg rounded-xl p-2 gap-1'>
+                <TabsTrigger
+                  value='programming'
+                  className='data-[state=active]:bg-blue-600 data-[state=active]:text-white dark:data-[state=active]:bg-blue-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.Code2 className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>Lập trình</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='system'
+                  className='data-[state=active]:bg-green-600 data-[state=active]:text-white dark:data-[state=active]:bg-green-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.Server className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>Hệ thống</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='database'
+                  className='data-[state=active]:bg-purple-600 data-[state=active]:text-white dark:data-[state=active]:bg-purple-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.Database className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>CSDL</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='ai'
+                  className='data-[state=active]:bg-orange-600 data-[state=active]:text-white dark:data-[state=active]:bg-orange-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.Brain className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>AI</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='software'
+                  className='data-[state=active]:bg-red-600 data-[state=active]:text-white dark:data-[state=active]:bg-red-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.Settings className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>Phần mềm</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='projects'
+                  className='data-[state=active]:bg-indigo-600 data-[state=active]:text-white dark:data-[state=active]:bg-indigo-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.GraduationCap className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>Đồ án</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='essays'
+                  className='data-[state=active]:bg-teal-600 data-[state=active]:text-white dark:data-[state=active]:bg-teal-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.BookOpen className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>Tiểu luận</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value='presentations'
+                  className='data-[state=active]:bg-pink-600 data-[state=active]:text-white dark:data-[state=active]:bg-pink-500 flex-shrink-0 px-3 py-2'
+                >
+                  <Icons.Settings className='w-4 h-4 mr-2' />
+                  <span className='whitespace-nowrap'>Slide & Design</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value='programming'>
               <PricingTable
