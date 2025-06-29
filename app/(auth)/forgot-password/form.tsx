@@ -68,7 +68,7 @@ export default function ForgotPasswordForm() {
 
             <div className='space-y-2'>
               <CardTitle className='text-3xl font-bold bg-gradient-to-r from-gray-900 to-green-900 dark:from-white dark:to-green-300 bg-clip-text text-transparent'>
-                Email đã được gửi!
+                Email đã được gửi!12sadsada--soft123--mixed
               </CardTitle>
               <p className='text-gray-600 dark:text-gray-300'>Kiểm tra hộp thư của bạn để đặt lại mật khẩu</p>
             </div>
